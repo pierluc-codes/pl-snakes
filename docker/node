@@ -1,0 +1,5 @@
+FROM node
+
+WORKDIR /usr/local/src/pl-snakes
+
+RUN yarn global add parcel-bundler typescript
