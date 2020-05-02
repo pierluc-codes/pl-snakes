@@ -1,6 +1,7 @@
 import { World } from './World'
 import { Grid } from './Grid'
 import { Snake, Direction } from './Snake'
+import { Cherry } from './Cherry'
 
 export class GameLoop {
 
@@ -22,20 +23,35 @@ export class GameLoop {
     }
 
     getProcessInputFunction() {
-        return (e) => {
-            console.log(e)
+        return (e: KeyboardEvent) => {
+            let snake = this.world.snake
+
+            console.log(e.code)
+
             switch (e.code) {
+                case 'KeyW': // key up
                 case 'ArrowUp': // key up
-                    this.world.snake.direction = Direction.North
+                    if (snake.direction != Direction.South) {
+                        snake.direction = Direction.North
+                    }
                     break
+                case 'KeyS': // key up
                 case 'ArrowDown': // key down
-                    this.world.snake.direction = Direction.South
+                    if (snake.direction != Direction.North) {
+                        snake.direction = Direction.South
+                    }
                     break
+                case 'KeyA': // key up
                 case 'ArrowLeft': // key left
-                    this.world.snake.direction = Direction.West
+                    if (snake.direction != Direction.East) {
+                        snake.direction = Direction.West
+                    }
                     break
+                case 'KeyD': // key up
                 case 'ArrowRight': // key right
-                    this.world.snake.direction = Direction.East
+                    if (snake.direction != Direction.West) {
+                        snake.direction = Direction.East
+                    }
                     break
             }
         }
@@ -46,22 +62,22 @@ export class GameLoop {
         let tick = Math.floor(delta / 100)
 
         if (tick >= 1) {
-            console.log("update")
             let snake = this.world.snake
 
-            switch(snake.direction){
-                case Direction.South:
-                    this.world.snake.head.y = this.world.snake.head.y + (Grid.SQUARE_SIZE * tick)
-                    break;
-                case Direction.North:
-                    this.world.snake.head.y = this.world.snake.head.y - (Grid.SQUARE_SIZE * tick)
-                    break;
-                case Direction.West:
-                    this.world.snake.head.x = this.world.snake.head.x - (Grid.SQUARE_SIZE * tick)
-                    break;
-                case Direction.East:
-                    this.world.snake.head.x = this.world.snake.head.x + (Grid.SQUARE_SIZE * tick)
-                    break;
+            if (snake.alive) {
+                snake.move(tick)
+            }
+            
+            let cherry = this.world.cherry
+
+            if (snake.isEating(cherry)) {
+                console.log('cherry eated. nom nom nom!')
+                snake.grow()
+                this.world.cherry = new Cherry((Math.floor(Math.random()*41)) * 10, (Math.floor(Math.random()*41)) * 10)
+            }
+
+            if (this.world.isSnakeOfOufBound()) {
+                snake.die()
             }
             
             this.lastModelUpdateTime = currentLoopStartTime

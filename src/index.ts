@@ -11,9 +11,7 @@ window.onload = () => {
 
     document.onkeydown = gameLoop.getProcessInputFunction()
 
-    gameLoop.start()
-
-    
+    gameLoop.start()   
 }
 
 const draw = () => {
