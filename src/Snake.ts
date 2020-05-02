@@ -1,6 +1,13 @@
 import { Grid } from './Grid'
 
 export class Snake {
+    /*enum Direction {
+        North = 1,
+        West,
+        East,
+        South
+    }*/
+
     head: SnakeHead
     color: string
 

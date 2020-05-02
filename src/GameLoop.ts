@@ -5,36 +5,42 @@ export class GameLoop {
 
     canvas: HTMLCanvasElement
     canvasContext: CanvasRenderingContext2D
+    window: Window
 
     running: boolean
     world: World
+    lastModelUpdateTime: number
 
-    constructor(canvas: HTMLCanvasElement, canvasContext: CanvasRenderingContext2D){
+    constructor(canvas: HTMLCanvasElement, canvasContext: CanvasRenderingContext2D, window: Window){
         this.canvas = canvas
         this.canvasContext = canvasContext
+        this.window = window
         this.running = false
         this.world = new World()
+        this.lastModelUpdateTime = 0;
     }
 
     processInput() {
         console.log("process input")
     }
 
-    update() {
-        console.log("update")
-        this.world.snake.head.x = this.world.snake.head.x + Grid.SQUARE_SIZE
+    update(currentLoopStartTime: number) {
+        let delta = (currentLoopStartTime - this.lastModelUpdateTime)
+        let tick = Math.floor(delta / 1000)
+
+        if (tick >= 1) {
+            console.log("update")
+            this.world.snake.head.y = this.world.snake.head.y + (Grid.SQUARE_SIZE * tick)
+            this.lastModelUpdateTime = currentLoopStartTime
+            this.world.dirty = true
+        }
     }
 
     render() {
         console.log("render")
+        /*this.canvasContext.save()*/
         this.world.render(this.canvas, this.canvasContext)
-    }
-
-    scheduleNext() {
-        let gameLoop = this as GameLoop
-        if (this.running) {
-            window.setTimeout(() => {gameLoop.loop()}, 1000) // TODO RELATIVE NUMBER
-        }
+        /*this.canvasContext.restore()*/
     }
 
     start() {
@@ -42,10 +48,18 @@ export class GameLoop {
         this.scheduleNext()
     }
 
-    loop() {
+    loop(currentLoopStartTime) {
+        console.log("loop")
         this.processInput()
-        this.update()
+        this.update(currentLoopStartTime)
         this.render()
-        this.scheduleNext()
+
+        if (this.running) {
+            this.scheduleNext()
+        }
+    }
+ 
+    scheduleNext() {
+        this.window.requestAnimationFrame((currentLoopStartTime: DOMHighResTimeStamp) => {this.loop(currentLoopStartTime)})
     }
 }

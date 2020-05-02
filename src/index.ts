@@ -7,7 +7,7 @@ window.onload = () => {
     ctx = canvas.getContext("2d") as CanvasRenderingContext2D
     // setInterval(draw, 1)
 
-    let gameLoop = new GameLoop(canvas, ctx)
+    let gameLoop = new GameLoop(canvas, ctx, window)
     gameLoop.start()
 }
 
