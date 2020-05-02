@@ -1,19 +1,14 @@
 import { Grid } from './Grid'
 
 export class Snake {
-    /*enum Direction {
-        North = 1,
-        West,
-        East,
-        South
-    }*/
-
     head: SnakeHead
     color: string
+    direction: Direction
 
     constructor() {
         this.head = new SnakeHead(50, 50)
         this.color = "green"
+        this.direction = Direction.North
     }
 
     render(ctx: CanvasRenderingContext2D) {
@@ -36,4 +31,11 @@ class SnakeHead {
         this.x = x
         this.y = y
     }
+}
+
+export enum Direction {
+    North = 1,
+    West,
+    East,
+    South
 }

@@ -8,7 +8,12 @@ window.onload = () => {
     // setInterval(draw, 1)
 
     let gameLoop = new GameLoop(canvas, ctx, window)
+
+    document.onkeydown = gameLoop.getProcessInputFunction()
+
     gameLoop.start()
+
+    
 }
 
 const draw = () => {
