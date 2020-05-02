@@ -3,8 +3,8 @@ import { GameLoop } from './GameLoop'
 var canvas, ctx;
 
 window.onload = () => {
-    canvas = document.getElementById("canvas")
-    ctx = canvas.getContext("2d")
+    canvas = document.getElementById("canvas") as HTMLCanvasElement
+    ctx = canvas.getContext("2d") as CanvasRenderingContext2D
     // setInterval(draw, 1)
 
     let gameLoop = new GameLoop(canvas, ctx)

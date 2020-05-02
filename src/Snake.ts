@@ -9,7 +9,7 @@ export class Snake {
         this.color = "green"
     }
 
-    render(ctx: any) {
+    render(ctx: CanvasRenderingContext2D) {
         console.log('rendering snake')
         ctx.fillStyle = this.color
         ctx.fillRect(

@@ -10,7 +10,7 @@ export class World {
         this.grid = new Grid()
     }
 
-    render(canvas:any, ctx: any) {
+    render(canvas:HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
         this.grid.render(canvas, ctx)
         this.snake.render(ctx)
     }

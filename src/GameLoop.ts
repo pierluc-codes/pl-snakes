@@ -3,13 +3,13 @@ import { Grid } from './Grid'
 
 export class GameLoop {
 
-    canvas: any
-    canvasContext: any
+    canvas: HTMLCanvasElement
+    canvasContext: CanvasRenderingContext2D
 
     running: boolean
     world: World
 
-    constructor(canvas: any, canvasContext: any){
+    constructor(canvas: HTMLCanvasElement, canvasContext: CanvasRenderingContext2D){
         this.canvas = canvas
         this.canvasContext = canvasContext
         this.running = false

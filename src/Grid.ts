@@ -7,7 +7,7 @@ export class Grid {
         this.color = "black"
     }
 
-    render(canvas:any, ctx: any) {
+    render(canvas:HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
         ctx.fillStyle = this.color
         ctx.fillRect(0, 0, canvas.width, canvas.height)
     }
