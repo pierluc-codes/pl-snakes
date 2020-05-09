@@ -34,7 +34,6 @@ export class Snake {
     }
     
     isEatingItself(){
-        let head = this.head
         return this.bodyPart.some(p => {
             return p.x == this.head.x && p.y == this.head.y
         })
@@ -77,7 +76,7 @@ export class Snake {
     }
 }
 
-class SnakeBodyPart {
+export class SnakeBodyPart {
     x: number
     y: number
     color: string

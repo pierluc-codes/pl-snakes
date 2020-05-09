@@ -8,5 +8,6 @@
 [x] dont apply direction change if its oppostive to direction
 
 [] refacto and test all the things!
+[] double buffering
 [] dont spawn cherry on snake
 [] frame rate ctr in top left corder 

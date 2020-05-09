@@ -6,3 +6,6 @@ enter:
 
 tc: 
 	docker-compose exec node tsc --noEmit
+
+test:
+	docker-compose exec node yarn run test
